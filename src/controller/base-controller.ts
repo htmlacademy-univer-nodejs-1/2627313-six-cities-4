@@ -28,7 +28,7 @@ export abstract class BaseController implements Controller {
     const allHandlers = middlewares ? [...middlewares, routeHandler] : routeHandler;
 
     this._router[route.method](route.path, allHandlers);
-    this.logger.info(`Route registered: ${route.method.toUpperCase()} ${route.path}`);
+    this.logger.info(`Registered route: ${route.method.toUpperCase()} ${route.path}`);
   }
 
   public send<T>(res: Response, statusCode: number, data: T): void {

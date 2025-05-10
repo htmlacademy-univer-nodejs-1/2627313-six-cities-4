@@ -25,13 +25,13 @@ export default class MongoClientService implements DatabaseClient {
         return await mongoose.connect(uri);
       } catch (error) {
         attempt++;
-        this.logger.error(`Failed to connect to the database. Attempt ${attempt}`);
+        this.logger.error(`Database connection failed (attempt ${attempt}).`);
         await setTimeout(RETRY_TIMEOUT);
       }
     }
 
-    this.logger.error(`Unable to establish database connection after ${attempt}`);
-    throw new Error('Failed to connect to the database');
+    this.logger.error(`Database connection failed after ${attempt} attempts.`);
+    throw new Error('Database connection failed.');
   }
 
   private async _connect(uri: string): Promise<void> {
@@ -47,18 +47,18 @@ export default class MongoClientService implements DatabaseClient {
 
   public async connect(uri: string): Promise<void> {
     if (this.isConnected) {
-      throw new Error('MongoDB client already connected');
+      throw new Error('MongoDB client is already connected to a database.');
     }
-    this.logger.info('Trying to connect to MongoDB');
+    this.logger.info('Connecting to MongoDB...');
     await this._connect(uri);
-    this.logger.info('Database connection established.');
+    this.logger.info('Database connection established!');
   }
 
   public async disconnect(): Promise<void> {
     if (!this.isConnected) {
-      throw new Error('Not connected to the database');
+      throw new Error('Database connection not established.');
     }
     await this._disconnect();
-    this.logger.info('Database connection closed.');
+    this.logger.info('Database connection terminated.');
   }
 }

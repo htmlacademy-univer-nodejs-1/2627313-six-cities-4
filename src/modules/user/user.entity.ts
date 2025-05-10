@@ -1,6 +1,6 @@
 import typegoose, {defaultClasses, getModelForClass} from '@typegoose/typegoose';
 import {User} from '../../types/user.type.js';
-import {createSHA256} from '../../helpers/createSHA256.js';
+import {createSHA256} from '../../utils/createSHA256.js';
 const {prop, modelOptions} = typegoose;
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging

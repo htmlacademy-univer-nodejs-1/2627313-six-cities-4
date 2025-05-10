@@ -13,13 +13,13 @@ export default class RestConfig implements Config<RestSchema> {
     const parsedOutput = config();
 
     if (parsedOutput.error) {
-      throw new Error('Can\'t read .env file');
+      throw new Error('Failed to read .env file.');
     }
 
     configRestSchema.load({});
     configRestSchema.validate({allowed: 'strict', output: this.logger.info});
     this.config = configRestSchema.getProperties();
-    this.logger.info('.env file found and successfully parsed');
+    this.logger.info('.env file successfully loaded.');
   }
 
   public get<T extends keyof RestSchema>(key: T): RestSchema[T] {

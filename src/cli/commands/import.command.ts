@@ -1,8 +1,8 @@
 import chalk from 'chalk';
 import {Command} from './command.interface.js';
-import {getErrorMessage} from '../../helpers/getErrorMessage.js';
-import {createOffer} from '../../helpers/createOffer.js';
-import TsvFileReader from '../../file-reader/tsv-file-reader.js';
+import {getErrorMessage} from '../../utils/getErrorMessage.js';
+import {createOffer} from '../../utils/createOffer.js';
+import TsvFileReader from '../../file/file-reader/tsv-file-reader.js';
 import {UserService} from '../../modules/user/user-service.interface.js';
 import {OfferService} from '../../modules/offer/offer-service.interface.js';
 import {DatabaseClient} from '../../database-client/database-client.interface.js';
@@ -14,7 +14,7 @@ import MongoClientService from '../../database-client/mongo.database-client.js';
 import DefaultOfferService from '../../modules/offer/default-offer.service.js';
 import DefaultUserService from '../../modules/user/default-user.service.js';
 import {Offer} from '../../types/offer.type.js';
-import {getMongoURI} from '../../helpers/getMongoURI.js';
+import {getMongoURI} from '../../utils/getMongoURI.js';
 
 const DEFAULT_DB_PORT = '27017';
 const DEFAULT_USER_PASSWORD = 'test';
@@ -56,13 +56,13 @@ export class ImportCommand implements Command {
   }
 
   private onComplete(count: number) {
-    console.log(`${count} rows imported.`);
+    console.log(`Imported ${count} rows.`);
     this.databaseService.disconnect();
   }
 
   public async execute(filename: string, login: string, password: string, host: string, dbname: string, salt: string): Promise<void> {
     if (filename === undefined) {
-      console.log(chalk.red('Укажите после команды --import путь к файлу'));
+      console.log(chalk.red('Укажите путь к файлу после команды --import.'));
     }
     const uri = getMongoURI(login, password, host, DEFAULT_DB_PORT, dbname);
     this.salt = salt;
@@ -76,7 +76,7 @@ export class ImportCommand implements Command {
     try {
       await fileReader.read();
     } catch (err) {
-      console.error(chalk.red(`Can't read the file: ${getErrorMessage(err)}`));
+      console.error(chalk.red(`Error reading file: ${getErrorMessage(err)}`));
     }
   }
 }
