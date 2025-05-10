@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import {Command} from './command.interface.js';
 import {MockServerData} from '../../types/mock-server-data.type.js';
 import TSVOfferGenerator from '../offer-generator/tsv-offer-generator.js';
-import TsvFileWriter from '../../file-writer/tsv-file-writer.js';
+import TsvFileWriter from '../../file/file-writer/tsv-file-writer.js';
 
 export class GenerateCommand implements Command {
   public readonly name = '--generate';
@@ -16,7 +16,7 @@ export class GenerateCommand implements Command {
     try {
       this.initialData = await got.get(url).json();
     } catch {
-      console.error(chalk.red(`Can't fetch data from ${url}`));
+      console.error(chalk.red(`Failed to fetch data from: ${url}`));
       return;
     }
 
@@ -27,6 +27,6 @@ export class GenerateCommand implements Command {
       await tsvFileWriter.write(offerGeneratorString.generate());
     }
 
-    console.log(`File ${filepath} was created`);
+    console.log(`Successfully created file: ${filepath}`);
   }
 }

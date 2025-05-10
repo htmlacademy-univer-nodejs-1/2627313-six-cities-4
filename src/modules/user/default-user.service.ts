@@ -20,7 +20,7 @@ export default class DefaultUserService implements UserService {
     user.setPassword(dto.password, salt);
 
     const result = await this.userModel.create(user);
-    this.logger.info(`New user created: ${user.email}`);
+    this.logger.info(`Created new user: ${user.email}`);
 
     return result;
   }

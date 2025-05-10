@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import {getRandomItem} from '../../helpers/getRandomItem.js';
-import {generateRandomValue} from '../../helpers/generateRandomValue.js';
+import {getRandomItem} from '../../utils/getRandomItem.js';
+import {generateRandomValue} from '../../utils/generateRandomValue.js';
 import {Housing} from '../../types/housing.enum.js';
 import {City} from '../../types/city.enum.js';
 import {MockServerData} from '../../types/mock-server-data.type.js';
@@ -9,10 +9,10 @@ import {User} from '../../types/user.type.js';
 import {Conveniences} from '../../types/conveniences.enum.js';
 import {Coordinates} from '../../types/coordinates.type.js';
 
-const MIN_PRICE = 100;
-const MAX_PRICE = 100000;
 const FIRST_WEEK_DAY = 1;
 const LAST_WEEK_DAY = 7;
+const MIN_PRICE = 100;
+const MAX_PRICE = 100000;
 
 export default class TSVOfferGenerator implements OfferGenerator {
   constructor(private readonly mockData: MockServerData) {

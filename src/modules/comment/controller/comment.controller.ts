@@ -10,7 +10,7 @@ import {HttpMethod} from '../../../types/http-method.enum.js';
 import CreateCommentDto from '../dto/create-comment.dto.js';
 import {HttpError} from '../../../errors/http-error.js';
 import {CommentRdo} from '../rdo/comment.rdo.js';
-import {fillDTO} from '../../../helpers/fillDTO.js';
+import {fillDTO} from '../../../utils/fillDTO.js';
 
 @injectable()
 export class CommentController extends BaseController {
@@ -21,7 +21,7 @@ export class CommentController extends BaseController {
   ) {
     super(logger);
 
-    this.logger.info('Register routes for CommentController…');
+    this.logger.info('Registering routes for CommentController...');
     this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create });
   }
 

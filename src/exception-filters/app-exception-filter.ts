@@ -5,14 +5,14 @@ import {HttpError} from '../errors/http-error.js';
 import {ExceptionFilter } from './exception-filter.interface.js';
 import {Component} from '../types/component.enum.js';
 import {Logger} from '../logger/logger.interface.js';
-import {createErrorObject} from '../helpers/createErrorObject.js';
+import {createErrorObject} from '../utils/createErrorObject.js';
 
 @injectable()
 export class AppExceptionFilter implements ExceptionFilter {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger
   ) {
-    this.logger.info('Register AppExceptionFilter');
+    this.logger.info('Registering AppExceptionFilter');
   }
 
   private handleHttpError(error: HttpError, _req: Request, res: Response, _next: NextFunction) {
